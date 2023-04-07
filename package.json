@@ -1,0 +1,30 @@
+{
+  "name": "travelland-api",
+  "version": "1.0.0",
+  "description": "TRAVEL LAND \u001b[D\u001b[D\u001b[D\u001b[D\u001b[\u001b[C\u001b[C\u001b[C\u001bLAND REST API",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "\u0016\u0016"
+  },
+  "keywords": [
+    "\u001b[3~\u001b[3",
+    "REST",
+    "RESTful",
+    "API",
+    "Node",
+    "MySQL",
+    "ORM"
+  ],
+  "author": "bsc-29-20",
+  "license": "ISC",
+  "dependencies": {
+    "dotenv": "^16.0.3",
+    "express": "^4.18.2",
+    "mysql": "^2.18.1",
+    "nodemon": "^2.0.22"
+  }
+}
