@@ -69,8 +69,17 @@ app.patch('/api/users/:userid', function (req, res) {
     })
 })
 
+//method to get a single user in the database 
+app.get('/api/users/:userid', function(req,res){
+    //Logic for get a single user from the database if the userid exists, return to the client app
+    const sql = `SELECT * FROM users WHERE userid=${req.params.userid} LIMIT 1`
 
+    dbConnection.query(sql, function(err,row){
+        if (err) throw err
 
+        return res.status(200).json(row)
+    })
+})
 
  app.listen(5000, function(){
     console.log('TravelLand is listening on port 3000')
