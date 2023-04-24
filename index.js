@@ -19,7 +19,11 @@ app.get('/api/users', function (req, res) {
     return dbConnection.query(sql, function (err, result) {
         if (err) throw err;
 
-        return res.json(result)
+        return res.json({
+            status: true,
+            statusCode: 200,
+            data: result
+        })
     })
 })
 
@@ -32,13 +36,18 @@ app.post('/api/users', function (req, res) {
     return dbConnection.query(sql, function (err, result) { 
         if (err) throw err;
         
-        return res.json(result)
+        return res.json({
+            status: true,
+            statusCode: 200,
+            data: result
+        })
      });
 })
 
 //Update users using patch
 app.patch('/api/users/:userid', function (req, res) {
     
+    //logic for
     const sql = `SELECT * FROM posts WHERE userid=${req.params.userid} LIMIT 1`
 
     return dbConnection.query(sql, function (err, rows) {
@@ -77,9 +86,31 @@ app.get('/api/users/:userid', function(req,res){
     dbConnection.query(sql, function(err,row){
         if (err) throw err
 
-        return res.status(200).json(row)
+        return res.status(200).json({
+            status: true,
+            statusCode: 200,
+            data: result
+        })
     })
 })
+
+ //delete single user from database 
+ app.delete('api/users/:userid', function (req,res){
+
+    //logic to user from the database
+    const sql = `DELETE FROM users WHERE userid=${req.params.userid} LIMIT 1`
+
+    dbConnection.query(sql, function(err,row){
+        if (err) throw err
+
+        return res.status(200).json({
+            status: true,
+            statusCode: 200,
+            data: row
+        })
+    })
+ })
+
 
  app.listen(5000, function(){
     console.log('TravelLand is listening on port 3000')
