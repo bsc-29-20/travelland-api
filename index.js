@@ -48,7 +48,7 @@ app.post('/api/users', function (req, res) {
 app.patch('/api/users/:userid', function (req, res) {
     
     //logic for
-    const sql = `SELECT * FROM posts WHERE userid=${req.params.userid} LIMIT 1`
+    const sql = `SELECT * FROM posts WHERE userid = '${req.params.userid}' LIMIT 1`
 
     return dbConnection.query(sql, function (err, rows) {
         if (err) throw err
@@ -63,16 +63,17 @@ app.patch('/api/users/:userid', function (req, res) {
                 return props += `${[key]}='${Object.values(user).at(index)}',`
             })
             
-            const updateSql = `UPDATE posts SET ${props[props.length - 1].slice(0, -1)} WHERE userid=${rows[0].userid}`
+            const updateSql = `UPDATE posts SET ${props[props.length - 1].slice(0, -1)} WHERE userid = '${rows[0].userid}'`
             
-            return dbConnection.query(updateSql, function (err, result) {
+            return dbConnection.query(updateSql, function (err, rows) {
+                if (err) throw err
                 return res.json(rows[0])
             })
         } else {
             return res.status(404).json({
                 status: false,
                 statusCode: 404,
-                message: `User with userid ${request.params.userid} does not exist.`
+                message: `User with userid '${request.params.userid}' does not exist.`
             })
         }
     })
@@ -81,7 +82,7 @@ app.patch('/api/users/:userid', function (req, res) {
 //method to get a single user in the database 
 app.get('/api/users/:userid', function(req,res){
     //Logic for get a single user from the database if the userid exists, return to the client app
-    const sql = `SELECT * FROM users WHERE userid=${req.params.userid} LIMIT 1`
+    const sql = `SELECT * FROM users WHERE userid = '${req.params.userid}' LIMIT 1`
 
     dbConnection.query(sql, function(err,row){
         if (err) throw err
@@ -89,7 +90,7 @@ app.get('/api/users/:userid', function(req,res){
         return res.status(200).json({
             status: true,
             statusCode: 200,
-            data: result
+            data: row
         })
     })
 })
@@ -98,7 +99,7 @@ app.get('/api/users/:userid', function(req,res){
  app.delete('api/users/:userid', function (req,res){
 
     //logic to user from the database
-    const sql = `DELETE FROM users WHERE userid=${req.params.userid} LIMIT 1`
+    const sql = `DELETE FROM users WHERE userid= '${req.params.userid}' LIMIT 1`
 
     dbConnection.query(sql, function(err,row){
         if (err) throw err
